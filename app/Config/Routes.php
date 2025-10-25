@@ -1,9 +1,13 @@
-
 <?php
 // Customer routes
 $routes->get('api/customers', 'Customer::index');
 $routes->post('api/customers', 'Customer::create');
 $routes->put('api/customers/(:num)', 'Customer::update/$1');
+
+// User routes
+$routes->get('api/users', 'User::index');
+$routes->post('api/users', 'User::create');
+$routes->put('api/users/(:num)', 'User::update/$1');
 
 use CodeIgniter\Router\RouteCollection;
 

@@ -12,10 +12,7 @@ class Lead extends ResourceController
     protected $userId = null;
     protected $role = null;
 
-    /**
-     * DRY JWT validation and user/role extraction
-     * Returns null if authorized, or a fail response if not
-     */
+   
     protected function authorizeRequest()
     {
         $authHeader = $this->request->getHeaderLine('Authorization');
