@@ -23,8 +23,9 @@ class Auth extends ResourceController
 
         $userModel = new UserModel();
         $user = $userModel->where('email', $this->request->getVar('email'))->first();
-        if (! $user || ! password_verify($this->request->getVar('password'), $user['password'])) {
-            return $this->failUnauthorized('Invalid email or password');
+        // TEMP: Compare plain password for debugging
+        if (! $user || $this->request->getVar('password') !== $user['password']) {
+            return $this->failUnauthorized('Invalid email or password (plain password mismatch)');
         }
 
         $key = getenv('JWT_SECRET') ?: 'your_secret_key';

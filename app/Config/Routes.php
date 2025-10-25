@@ -8,3 +8,5 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 
 $routes->post('api/login', 'Auth::login');
+
+$routes->post('api/leads', 'Lead::create');
