@@ -5,31 +5,45 @@ namespace App\Controllers;
 use App\Models\CustomerModel;
 use CodeIgniter\RESTful\ResourceController;
 
+
 class Customer extends ResourceController
 {
     protected $format = 'json';
+    protected $userId = null;
+    protected $role = null;
 
-    public function index()
+    /**
+     * DRY JWT validation and user/role extraction
+     * Returns null if authorized, or a fail response if not
+     */
+    protected function authorizeRequest()
     {
-        $customerModel = new CustomerModel();
         $authHeader = $this->request->getHeaderLine('Authorization');
-        $userId = null;
-        $role = null;
         if (preg_match('/Bearer\s+(.*)$/i', $authHeader, $matches)) {
             $jwt = $matches[1];
             try {
                 $key = env('JWT_SECRET') ?: 'your_secret_key';
                 $decoded = \Firebase\JWT\JWT::decode($jwt, new \Firebase\JWT\Key($key, 'HS256'));
-                $userId = $decoded->uid ?? null;
-                $role = $decoded->role ?? null;
+                $this->userId = $decoded->uid ?? null;
+                $this->role = $decoded->role ?? null;
+                return null;
             } catch (\Exception $e) {
                 return $this->failUnauthorized('Invalid or expired token');
             }
         }
-        if ($role === 'admin') {
+        return $this->failUnauthorized('Missing or invalid Authorization header');
+    }
+
+    public function index()
+    {
+        if ($fail = $this->authorizeRequest()) {
+            return $fail;
+        }
+        $customerModel = new CustomerModel();
+        if ($this->role === 'admin') {
             $customers = $customerModel->findAll();
-        } elseif ($role === 'user') {
-            $customers = $customerModel->where('assigned_to', $userId)->findAll();
+        } elseif ($this->role === 'user') {
+            $customers = $customerModel->where('assigned_to', $this->userId)->findAll();
         } else {
             return $this->failUnauthorized('Role not recognized');
         }
@@ -38,6 +52,9 @@ class Customer extends ResourceController
 
     public function create()
     {
+        if ($fail = $this->authorizeRequest()) {
+            return $fail;
+        }
         $rules = [
             'name'        => 'required',
             'email'       => 'required|valid_email',
@@ -59,6 +76,9 @@ class Customer extends ResourceController
 
     public function update($id = null)
     {
+        if ($fail = $this->authorizeRequest()) {
+            return $fail;
+        }
         if ($id === null) {
             return $this->failValidationErrors('Customer ID is required');
         }
