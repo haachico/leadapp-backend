@@ -9,6 +9,39 @@ class Lead extends ResourceController
 {
     protected $format = 'json';
 
+    public function index()
+    {
+        $leadModel = new LeadModel();
+
+        $authHeader = $this->request->getHeaderLine('Authorization');
+        $userId = null;
+        $role = null;
+        if (preg_match('/Bearer\s+(.*)$/i', $authHeader, $matches)) {
+            $jwt = $matches[1];
+            try {
+                $key = env('JWT_SECRET') ?: 'your_secret_key';
+                $decoded = \Firebase\JWT\JWT::decode($jwt, new \Firebase\JWT\Key($key, 'HS256'));
+                $userId = $decoded->uid ?? null;
+                $role = $decoded->role ?? null;
+            } catch (\Exception $e) {
+                return $this->failUnauthorized('Invalid or expired token');
+            }
+        }
+
+        // Debug: Show actual role and userId being checked
+        // return $this->respond(['role' => $role, 'userId' => $userId]);
+
+        if ($role === 'admin') {
+            $leads = $leadModel->findAll();
+        } elseif ($role === 'user') {
+            $leads = $leadModel->where('assigned_to', $userId)->findAll();
+        } else {
+            return $this->failUnauthorized('Role not recognized');
+        }
+
+        return $this->respond($leads);
+    }
+
     public function create()
     {
         $rules = [

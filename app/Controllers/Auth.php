@@ -28,7 +28,7 @@ class Auth extends ResourceController
             return $this->failUnauthorized('Invalid email or password (plain password mismatch)');
         }
 
-        $key = getenv('JWT_SECRET') ?: 'your_secret_key';
+    $key = env('JWT_SECRET') ?: 'your_secret_key';
         $payload = [
             'iss' => base_url(),
             'aud' => base_url(),
