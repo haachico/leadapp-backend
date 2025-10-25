@@ -9,6 +9,9 @@ $routes->get('api/users', 'User::index');
 $routes->post('api/users', 'User::create');
 $routes->put('api/users/(:num)', 'User::update/$1');
 
+// Dashboard routes
+$routes->get('api/dashboard/summary', 'Dashboard::summary');
+
 use CodeIgniter\Router\RouteCollection;
 
 /**
