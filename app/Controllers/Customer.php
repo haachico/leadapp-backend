@@ -110,4 +110,25 @@ class Customer extends ResourceController
         $updatedCustomer = $customerModel->find($id);
         return $this->respond($updatedCustomer);
     }
+
+       public function delete($id = null)
+    {
+        if ($fail = $this->authorizeRequest()) {
+            return $fail;
+        }
+        if ($id === null) {
+            return $this->failValidationErrors('Customer ID is required');
+        }
+        $customerModel = new CustomerModel();
+        $customer = $customerModel->find($id);
+        if (! $customer) {
+            return $this->failNotFound('Customer not found');
+        }
+        $customerModel->delete($id);
+        return $this->respondDeleted(['id' => $id, 'message' => 'Customer deleted']);
+    }
+
+
+    
+    
 }

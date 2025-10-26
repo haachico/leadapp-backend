@@ -103,4 +103,21 @@ class User extends ResourceController
         $updatedUser = $userModel->find($id);
         return $this->respond($updatedUser);
     }
+
+      public function delete($id = null)
+    {
+        if ($fail = $this->authorizeAdmin()) {
+            return $fail;
+        }
+        if ($id === null) {
+            return $this->failValidationErrors('User ID is required');
+        }
+        $userModel = new UserModel();
+        $user = $userModel->find($id);
+        if (! $user) {
+            return $this->failNotFound('User not found');
+        }
+        $userModel->delete($id);
+        return $this->respondDeleted(['id' => $id, 'message' => 'User deleted']);
+    }
 }

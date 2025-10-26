@@ -100,6 +100,7 @@ class Lead extends ResourceController
         if (! $this->validate($rules, $data)) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
+        // Check for unique email within project if email is being updated
         if (isset($data['email'])) {
             $existing = $leadModel->where('email', $data['email'])
                                   ->where('project_id', $data['project_id'] ?? $lead['project_id'])
@@ -114,6 +115,7 @@ class Lead extends ResourceController
 
         if (isset($data['status']) && strtolower($data['status']) === 'converted') {
             $customerModel = new \App\Models\CustomerModel();
+            // Only add if not already present for this lead
             $existingCustomer = $customerModel->where('lead_id', $id)->first();
             if (! $existingCustomer) {
                 $customerData = [
@@ -127,5 +129,22 @@ class Lead extends ResourceController
             }
         }
         return $this->respond($updatedLead);
+    }
+
+        public function delete($id = null)
+    {
+        if ($fail = $this->authorizeRequest()) {
+            return $fail;
+        }
+        if ($id === null) {
+            return $this->failValidationErrors('Lead ID is required');
+        }
+        $leadModel = new LeadModel();
+        $lead = $leadModel->find($id);
+        if (! $lead) {
+            return $this->failNotFound('Lead not found');
+        }
+        $leadModel->delete($id);
+        return $this->respondDeleted(['id' => $id, 'message' => 'Lead deleted']);
     }
 }
