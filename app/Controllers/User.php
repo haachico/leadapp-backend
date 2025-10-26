@@ -17,7 +17,10 @@ class User extends ResourceController
         if (preg_match('/Bearer\s+(.*)$/i', $authHeader, $matches)) {
             $jwt = $matches[1];
             try {
-                $key = env('JWT_SECRET') ?: 'your_secret_key';
+                $key = env('JWT_SECRET');
+                if (!$key) {
+                    throw new \Exception('JWT_SECRET is not set in your .env file. Please set a strong secret key.');
+                }
                 $decoded = \Firebase\JWT\JWT::decode($jwt, new \Firebase\JWT\Key($key, 'HS256'));
                 $this->userId = $decoded->uid ?? null;
                 $this->role = $decoded->role ?? null;

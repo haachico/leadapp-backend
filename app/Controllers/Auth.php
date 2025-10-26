@@ -28,7 +28,10 @@ class Auth extends ResourceController
             return $this->failUnauthorized('Invalid email or password');
         }
 
-    $key = env('JWT_SECRET') ?: 'your_secret_key';
+    $key = env('JWT_SECRET');
+    if (!$key) {
+        return $this->failServerError('JWT_SECRET is not set in your .env file. Please set a strong secret key.');
+    }
         $payload = [
             'iss' => base_url(),
             'aud' => base_url(),

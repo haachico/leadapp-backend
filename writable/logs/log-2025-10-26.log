@@ -278,3 +278,213 @@ WHERE `id` IN :id:', [...], false)
 12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 13 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 14 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
+ERROR - 2025-10-26 12:38:37 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`)) in C:\xampp2024\htdocs\leadapp\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp2024\htdocs\leadapp\system\Database\MySQLi\Connection.php(327): mysqli->query('DELETE FROM `le...', 0)
+#1 C:\xampp2024\htdocs\leadapp\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `le...')
+#2 C:\xampp2024\htdocs\leadapp\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `le...')
+#3 C:\xampp2024\htdocs\leadapp\system\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `le...', Array, false)
+#4 C:\xampp2024\htdocs\leadapp\system\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\xampp2024\htdocs\leadapp\system\BaseModel.php(1152): CodeIgniter\Model->doDelete(Array, false)
+#6 C:\xampp2024\htdocs\leadapp\app\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete(Array)
+#7 C:\xampp2024\htdocs\leadapp\system\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+#8 C:\xampp2024\htdocs\leadapp\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+#9 C:\xampp2024\htdocs\leadapp\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp2024\htdocs\leadapp\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp2024\htdocs\leadapp\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp2024\htdocs\leadapp\public\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 C:\xampp2024\htdocs\leadapp\system\rewrite.php(44): require_once('C:\\xampp2024\\ht...')
+#14 {main}
+CRITICAL - 2025-10-26 12:38:37 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`))
+[Method: DELETE, Route: api/leads/9]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `leads`
+WHERE `id` IN :id:', [...], false)
+ 2 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete([...], false)
+ 4 APPPATH\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete([...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
+CRITICAL - 2025-10-26 12:38:37 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `leads`
+WHERE `id` IN :id:', [...], false)
+ 4 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 5 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete([...], false)
+ 6 APPPATH\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
+CRITICAL - 2025-10-26 12:38:37 --> [Caused by] mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('DELETE FROM `leads`
+WHERE `id` IN (\'9\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `leads`
+WHERE `id` IN :id:', [...], false)
+ 5 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 6 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete([...], false)
+ 7 APPPATH\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
+ERROR - 2025-10-26 12:38:53 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`)) in C:\xampp2024\htdocs\leadapp\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp2024\htdocs\leadapp\system\Database\MySQLi\Connection.php(327): mysqli->query('DELETE FROM `le...', 0)
+#1 C:\xampp2024\htdocs\leadapp\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `le...')
+#2 C:\xampp2024\htdocs\leadapp\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `le...')
+#3 C:\xampp2024\htdocs\leadapp\system\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `le...', Array, false)
+#4 C:\xampp2024\htdocs\leadapp\system\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\xampp2024\htdocs\leadapp\system\BaseModel.php(1152): CodeIgniter\Model->doDelete(Array, false)
+#6 C:\xampp2024\htdocs\leadapp\app\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete(Array)
+#7 C:\xampp2024\htdocs\leadapp\system\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+#8 C:\xampp2024\htdocs\leadapp\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+#9 C:\xampp2024\htdocs\leadapp\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp2024\htdocs\leadapp\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp2024\htdocs\leadapp\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp2024\htdocs\leadapp\public\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 C:\xampp2024\htdocs\leadapp\system\rewrite.php(44): require_once('C:\\xampp2024\\ht...')
+#14 {main}
+CRITICAL - 2025-10-26 12:38:53 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`))
+[Method: DELETE, Route: api/leads/9]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `leads`
+WHERE `id` IN :id:', [...], false)
+ 2 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete([...], false)
+ 4 APPPATH\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete([...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
+CRITICAL - 2025-10-26 12:38:53 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `leads`
+WHERE `id` IN :id:', [...], false)
+ 4 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 5 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete([...], false)
+ 6 APPPATH\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
+CRITICAL - 2025-10-26 12:38:53 --> [Caused by] mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('DELETE FROM `leads`
+WHERE `id` IN (\'9\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `leads`
+WHERE `id` IN :id:', [...], false)
+ 5 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 6 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete([...], false)
+ 7 APPPATH\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
+ERROR - 2025-10-26 12:39:23 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`)) in C:\xampp2024\htdocs\leadapp\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp2024\htdocs\leadapp\system\Database\MySQLi\Connection.php(327): mysqli->query('DELETE FROM `le...', 0)
+#1 C:\xampp2024\htdocs\leadapp\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `le...')
+#2 C:\xampp2024\htdocs\leadapp\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `le...')
+#3 C:\xampp2024\htdocs\leadapp\system\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `le...', Array, false)
+#4 C:\xampp2024\htdocs\leadapp\system\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\xampp2024\htdocs\leadapp\system\BaseModel.php(1152): CodeIgniter\Model->doDelete(Array, false)
+#6 C:\xampp2024\htdocs\leadapp\app\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete(Array)
+#7 C:\xampp2024\htdocs\leadapp\system\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+#8 C:\xampp2024\htdocs\leadapp\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+#9 C:\xampp2024\htdocs\leadapp\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp2024\htdocs\leadapp\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#11 C:\xampp2024\htdocs\leadapp\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\xampp2024\htdocs\leadapp\public\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 C:\xampp2024\htdocs\leadapp\system\rewrite.php(44): require_once('C:\\xampp2024\\ht...')
+#14 {main}
+CRITICAL - 2025-10-26 12:39:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`))
+[Method: DELETE, Route: api/leads/9]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `leads`
+WHERE `id` IN :id:', [...], false)
+ 2 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete([...], false)
+ 4 APPPATH\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete([...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
+CRITICAL - 2025-10-26 12:39:23 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `leads`
+WHERE `id` IN :id:', [...], false)
+ 4 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 5 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete([...], false)
+ 6 APPPATH\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete([...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+13 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
+CRITICAL - 2025-10-26 12:39:23 --> [Caused by] mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`leadapp`.`customers`, CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`lead_id`) REFERENCES `leads` (`id`))
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('DELETE FROM `leads`
+WHERE `id` IN (\'9\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `leads`
+WHERE `id` IN (\'9\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `leads`
+WHERE `id` IN :id:', [...], false)
+ 5 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 6 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete([...], false)
+ 7 APPPATH\Controllers\Lead.php(147): CodeIgniter\BaseModel->delete([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Lead->delete('9')
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lead))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(68): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+14 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp2024\\htdocs\\leadapp\\public\\index.php')
