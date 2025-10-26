@@ -40,6 +40,10 @@ class User extends ResourceController
         }
         $userModel = new UserModel();
         $users = $userModel->findAll();
+        // Remove password from each user before sending
+        foreach ($users as &$user) {
+            unset($user['password']);
+        }
         return $this->respond($users);
     }
 
@@ -59,11 +63,12 @@ class User extends ResourceController
         if (! $this->validate($rules, $data)) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
-        $userModel = new UserModel();
-        $data['password'] = $data['password']; // Add hashing if needed
-        $userModel->insert($data);
-        $user = $userModel->find($userModel->getInsertID());
-        return $this->respondCreated($user);
+    $userModel = new UserModel();
+    // Hash the password before storing
+    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+    $userModel->insert($data);
+    $user = $userModel->find($userModel->getInsertID());
+    return $this->respondCreated($user);
     }
 
     // Edit/update user (admin only)
@@ -97,7 +102,8 @@ class User extends ResourceController
             }
         }
         if (isset($data['password'])) {
-            $data['password'] = $data['password']; // Add hashing if needed
+            // Hash the password if provided
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         }
         $userModel->update($id, $data);
         $updatedUser = $userModel->find($id);
@@ -116,6 +122,12 @@ class User extends ResourceController
         $user = $userModel->find($id);
         if (! $user) {
             return $this->failNotFound('User not found');
+        }
+        // Check for leads assigned to this user
+        $leadModel = new \App\Models\LeadModel();
+        $assignedLeads = $leadModel->where('assigned_to', $id)->countAllResults();
+        if ($assignedLeads > 0) {
+            return $this->failResourceExists('Cannot delete user: This user is assigned to one or more leads. Please reassign or remove those leads first.');
         }
         $userModel->delete($id);
         return $this->respondDeleted(['id' => $id, 'message' => 'User deleted']);
