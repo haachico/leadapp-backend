@@ -100,7 +100,6 @@ class Lead extends ResourceController
         if (! $this->validate($rules, $data)) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
-        // Check for unique email within project if email is being updated
         if (isset($data['email'])) {
             $existing = $leadModel->where('email', $data['email'])
                                   ->where('project_id', $data['project_id'] ?? $lead['project_id'])
@@ -112,6 +111,21 @@ class Lead extends ResourceController
         }
         $leadModel->update($id, $data);
         $updatedLead = $leadModel->find($id);
+
+        if (isset($data['status']) && strtolower($data['status']) === 'converted') {
+            $customerModel = new \App\Models\CustomerModel();
+            $existingCustomer = $customerModel->where('lead_id', $id)->first();
+            if (! $existingCustomer) {
+                $customerData = [
+                    'name'        => $updatedLead['name'],
+                    'email'       => $updatedLead['email'],
+                    'phone'       => $updatedLead['phone'] ?? null,
+                    'lead_id'     => $id,
+                    'assigned_to' => $updatedLead['assigned_to'],
+                ];
+                $customerModel->insert($customerData);
+            }
+        }
         return $this->respond($updatedLead);
     }
 }
